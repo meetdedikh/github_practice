@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import Dashboard from "./Dashboard";
+import "./App.css";
+import { Login } from "./Login";
+import { Route, Routes } from "react-router-dom";
+import { UserProfile } from "./UserProfile";
+import { Request } from "./Request";
+import { FriendList } from "./FriendList";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { Registrarion } from "./Registrarion";
+import { AddPost } from "./AddPost";
+import { Comment } from "./Comment";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { state } = useContext(AuthContext);
+  if (!state.isLoggedIn)
+    return (
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Registrarion/>} />
+      </Routes>
+    );
+    return (
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/request" element={<Request />} />
+        <Route path="/friendlist" element={<FriendList />} />
+        <Route path="/addpost" element={<AddPost />} />
+        <Route path="/addcomments" element={<Comment />} />.
+        
+        
+      </Routes>
+    );
 }
 
 export default App;
